@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://www.appserver.io/appserver">
+
+    <persistenceUnits>
+
+        <persistenceUnit name="ArcaneInsightEntityManager"
+                         interface="Doctrine\ORM\EntityManagerInterface"
+                         type="Doctrine\ORM\EntityManager"
+                         factory="AppserverIo\Appserver\PersistenceContainer\Doctrine\EntityManagerFactory">
+
+            <metadataConfiguration type="annotation">
+                <directories>
+                    <directory>/common/classes/Magenerds/ArcaneInsight/Entities</directory>
+                </directories>
+                <params>
+                    <param name="isDevMode" type="boolean">true</param>
+                    <param name="useSimpleAnnotationReader" type="boolean">false</param>
+                </params>
+            </metadataConfiguration>
+
+            <ignoredAnnotations>
+                <ignoredAnnotation>Processing</ignoredAnnotation>
+                <ignoredAnnotation>Requires</ignoredAnnotation>
+                <ignoredAnnotation>Ensures</ignoredAnnotation>
+                <ignoredAnnotation>Invariant</ignoredAnnotation>
+            </ignoredAnnotations>
+
+            <annotationRegistries>
+                <annotationRegistry namespace="Doctrine\Search\Mapping\Annotations">
+                    <directories>
+                        <directory>/vendor/doctrine/search/lib</directory>
+                    </directories>
+                </annotationRegistry>
+
+                <annotationRegistry namespace="JMS\Serializer\Annotation">
+                    <directories>
+                        <directory>/vendor/jms/serializer/src</directory>
+                    </directories>
+                </annotationRegistry>
+            </annotationRegistries>
+
+            <datasource name="magenerds-arcaneinsight-application"/>
+        </persistenceUnit>
+
+    </persistenceUnits>
+
+</persistence>

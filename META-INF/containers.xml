@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<containers xmlns="http://www.appserver.io/appserver">
+    <container name="combined-appserver">
+        <servers>
+            <server name="http">
+                <virtualHosts>
+                    <virtualHost name="arcane-insight.dev www.arcane-insight.dev">
+                        <params>
+                            <param name="admin" type="string">core@techdivision.com</param>
+                            <param name="documentRoot" type="string">webapps/arcane-insight</param>
+                        </params>
+                    </virtualHost>
+                </virtualHosts>
+            </server>
+            <server name="https">
+                <virtualHosts>
+                    <virtualHost name="arcane-insight www.arcane-insight.dev">
+                        <params>
+                            <param name="admin" type="string">core@techdivision.com</param>
+                            <param name="documentRoot" type="string">webapps/arcane-insight</param>
+                        </params>
+                    </virtualHost>
+                </virtualHosts>
+            </server>
+        </servers>
+    </container>
+</containers>
