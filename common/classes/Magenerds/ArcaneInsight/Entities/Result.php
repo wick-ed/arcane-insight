@@ -42,7 +42,7 @@ class Result
     protected $id;
 
     /**
-     *
+     * The unique key identifying the result by type
      *
      * @var string $key
      *
@@ -54,7 +54,7 @@ class Result
     protected $key;
 
     /**
-     *
+     * The grade of severity this result has
      *
      * @var integer $severity
      *
@@ -66,7 +66,8 @@ class Result
     protected $severity;
 
     /**
-     *
+     * The actual result staus.
+     * -1 = failed, 0 = unknown, 1 = success
      *
      * @var integer $status
      *
@@ -78,7 +79,7 @@ class Result
     protected $status;
 
     /**
-     * The image relations.
+     * The report being the base of this result
      *
      * @var Report $report
      *
@@ -89,7 +90,7 @@ class Result
     protected $report;
 
     /**
-     * Timestamp tracking the latest change to the result entry
+     * Timestamp identifying the time this result was generated
      *
      * @var integer $timestamp
      *
@@ -100,6 +101,8 @@ class Result
     protected $timestamp;
 
     /**
+     * Getter for the ID
+     *
      * @return string
      */
     public function getId()
@@ -108,7 +111,11 @@ class Result
     }
 
     /**
-     * @param string $id
+     * Setter for the ID
+     *
+     * @param string $id The ID to set
+     *
+     * @return void
      */
     public function setId($id)
     {
@@ -116,6 +123,8 @@ class Result
     }
 
     /**
+     * Getter for the result key
+     *
      * @return string
      */
     public function getKey()
@@ -124,7 +133,11 @@ class Result
     }
 
     /**
-     * @param string $key
+     * Setter for the result key
+     *
+     * @param string $key The result key to set
+     *
+     * @return void
      */
     public function setKey($key)
     {
@@ -132,6 +145,8 @@ class Result
     }
 
     /**
+     * Getter for the result severity
+     *
      * @return integer
      */
     public function getSeverity()
@@ -140,7 +155,11 @@ class Result
     }
 
     /**
-     * @param integer $severity
+     * Setter for the result severity
+     *
+     * @param integer $severity The severity to set
+     *
+     * @return void
      */
     public function setSeverity($severity)
     {
@@ -148,6 +167,8 @@ class Result
     }
 
     /**
+     * Getter for the actual result status. -1 = failed, 0 = unknown, 1 = success
+     *
      * @return integer
      */
     public function getStatus()
@@ -156,7 +177,11 @@ class Result
     }
 
     /**
-     * @param integer $status
+     * Setter for the result status
+     *
+     * @param integer $status The status to set. -1 = failed, 0 = unknown, 1 = success
+     *
+     * @return void
      */
     public function setStatus($status)
     {
@@ -164,6 +189,8 @@ class Result
     }
 
     /**
+     * Getter for the report which caused the result
+     *
      * @return Report
      */
     public function getReport()
@@ -172,7 +199,11 @@ class Result
     }
 
     /**
-     * @param Report $report
+     * Setter for the result report
+     *
+     * @param Report $report The report to set
+     *
+     * @return void
      */
     public function setReport(Report $report)
     {
@@ -180,6 +211,8 @@ class Result
     }
 
     /**
+     * Getter for the result timestamp
+     *
      * @return int
      */
     public function getTimestamp()
@@ -188,7 +221,11 @@ class Result
     }
 
     /**
-     * @param int $timestamp
+     * Setter for the result timestamp
+     *
+     * @param int $timestamp The timestamp to set
+     *
+     * @return void
      */
     public function setTimestamp($timestamp)
     {

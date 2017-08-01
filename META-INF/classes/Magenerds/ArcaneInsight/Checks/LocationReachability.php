@@ -18,7 +18,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-
 /**
  * This is the implementation of a import message receiver.
  *

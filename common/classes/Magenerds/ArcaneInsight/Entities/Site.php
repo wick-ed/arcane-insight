@@ -42,7 +42,7 @@ class Site
     protected $id;
 
     /**
-     *
+     * The site's name
      *
      * @var string $name
      *
@@ -54,7 +54,7 @@ class Site
     protected $name;
 
     /**
-     *
+     * The base URL the site is reachable under
      *
      * @var string $url
      *
@@ -66,7 +66,8 @@ class Site
     protected $url;
 
     /**
-     *
+     * The environment the site is under.
+     * E.g. production, staging, test, ...
      *
      * @var string $environment
      *
@@ -78,7 +79,7 @@ class Site
     protected $environment;
 
     /**
-     *
+     * The logo the site will have in any dashboard overview
      *
      * @var string $logo
      *
@@ -90,7 +91,7 @@ class Site
     protected $logo;
 
     /**
-     *
+     * The current status of the site. Based on latest check results
      *
      * @var Status $status
      *
@@ -103,6 +104,8 @@ class Site
     protected $status;
 
     /**
+     * Getter for the ID
+     *
      * @return string
      */
     public function getId()
@@ -111,7 +114,11 @@ class Site
     }
 
     /**
-     * @param string $id
+     * Setter for the ID
+     *
+     * @param string $id The ID to set
+     *
+     * @return void
      */
     public function setId($id)
     {
@@ -119,6 +126,8 @@ class Site
     }
 
     /**
+     * Getter for the site's name
+     *
      * @return string
      */
     public function getName()
@@ -127,7 +136,11 @@ class Site
     }
 
     /**
-     * @param string $name
+     * Setter for the site's name
+     *
+     * @param string $name The site name to set
+     *
+     * @return void
      */
     public function setName($name)
     {
@@ -135,6 +148,8 @@ class Site
     }
 
     /**
+     * Getter for the site URL
+     *
      * @return string
      */
     public function getUrl()
@@ -143,7 +158,11 @@ class Site
     }
 
     /**
-     * @param string $url
+     * Setter for the site URL
+     *
+     * @param string $url The site URL to set
+     *
+     * @return void
      */
     public function setUrl($url)
     {
@@ -151,6 +170,8 @@ class Site
     }
 
     /**
+     * Getter for the site environment
+     *
      * @return string
      */
     public function getEnvironment()
@@ -159,7 +180,11 @@ class Site
     }
 
     /**
-     * @param string $environment
+     * Getter for the site environment
+     *
+     * @param string $environment The environment to set
+     *
+     * @return void
      */
     public function setEnvironment($environment)
     {
@@ -167,6 +192,8 @@ class Site
     }
 
     /**
+     * Getter for the site logo
+     *
      * @return string
      */
     public function getLogo()
@@ -175,7 +202,11 @@ class Site
     }
 
     /**
-     * @param string $logo
+     * Setter for the site logo
+     *
+     * @param string $logo The site logo to set
+     *
+     * @return void
      */
     public function setLogo($logo)
     {

@@ -42,7 +42,7 @@ class Status
     protected $id;
 
     /**
-     *
+     * The status code
      *
      * @var integer $code
      *
@@ -54,7 +54,7 @@ class Status
     protected $code;
 
     /**
-     *
+     * The site the status is for
      *
      * @var Site $site
      *
@@ -66,7 +66,7 @@ class Status
     protected $site;
 
     /**
-     *
+     * The results which hold the check data for this status
      *
      * @var Result[] $results
      *
@@ -84,6 +84,8 @@ class Status
     protected $results;
 
     /**
+     * Getter for the ID
+     *
      * @return string
      */
     public function getId()
@@ -92,7 +94,11 @@ class Status
     }
 
     /**
-     * @param string $id
+     * Setter for the ID
+     *
+     * @param string $id The ID to set
+     *
+     * @return void
      */
     public function setId($id)
     {
@@ -100,6 +106,8 @@ class Status
     }
 
     /**
+     * Getter for the code
+     *
      * @return int
      */
     public function getCode()
@@ -108,7 +116,11 @@ class Status
     }
 
     /**
-     * @param int $code
+     * Setter for the code
+     *
+     * @param int $code The code to set
+     *
+     * @return void
      */
     public function setCode($code)
     {
@@ -116,6 +128,8 @@ class Status
     }
 
     /**
+     * The getter for the site
+     *
      * @return Site
      */
     public function getSite()
@@ -124,7 +138,11 @@ class Status
     }
 
     /**
-     * @param Site $site
+     * The setter for the site
+     *
+     * @param Site $site The site to set
+     *
+     * @return void
      */
     public function setSite($site)
     {
@@ -132,6 +150,8 @@ class Status
     }
 
     /**
+     * Getter for the results
+     *
      * @return Result[]
      */
     public function getResults()
@@ -140,7 +160,11 @@ class Status
     }
 
     /**
-     * @param Result[] $results
+     * The setter for the results
+     *
+     * @param Result[] $results The result collection to set
+     *
+     * @return void
      */
     public function setResults($results)
     {

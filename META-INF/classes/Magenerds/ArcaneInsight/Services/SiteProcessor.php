@@ -56,6 +56,18 @@ class SiteProcessor
     }
 
     /**
+     * Creates a new user instance, assumes password not provided
+     *
+     * @param Site $site
+     *
+     * @return Site
+     */
+    public function create(Site $site)
+    {
+        return $this->getSiteAction()->create($site);
+    }
+
+    /**
      * Loads all or only a certain user entity
      *
      * @param string|null $id Id of entity to load
@@ -64,7 +76,31 @@ class SiteProcessor
      */
     public function read($id = null)
     {
-        return $this->siteAction->read($id);
+        return $this->getSiteAction()->read($id);
+    }
+
+    /**
+     * Updates a collection of given users
+     *
+     * @param Site[] $sites
+     *
+     * @return Site
+     */
+    public function update(array $sites)
+    {
+        return $this->getSiteAction()->update($sites);
+    }
+
+    /**
+     * Deletes a certain entity
+     *
+     * @param string $id Id of entity to delete
+     *
+     * @return void
+     */
+    public function delete($id)
+    {
+        $this->getSiteAction()->delete($id);
     }
 
     /**

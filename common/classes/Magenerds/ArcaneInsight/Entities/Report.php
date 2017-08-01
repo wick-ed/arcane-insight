@@ -42,7 +42,7 @@ class Report
     protected $id;
 
     /**
-     *
+     * The complete report log
      *
      * @var string $log
      *
@@ -64,6 +64,8 @@ class Report
     protected $timestamp;
 
     /**
+     * Getter for the ID
+     *
      * @return string
      */
     public function getId()
@@ -72,7 +74,11 @@ class Report
     }
 
     /**
-     * @param string $id
+     * Setter for the ID
+     *
+     * @param string $id The ID to set
+     *
+     * @return void
      */
     public function setId($id)
     {
@@ -80,6 +86,8 @@ class Report
     }
 
     /**
+     * Getter for the report log
+     *
      * @return string
      */
     public function getLog()
@@ -88,7 +96,11 @@ class Report
     }
 
     /**
-     * @param string $log
+     * Setter for the report log
+     *
+     * @param string $log The log to set
+     *
+     * @return void
      */
     public function setLog($log)
     {
@@ -96,6 +108,8 @@ class Report
     }
 
     /**
+     * Getter for the report timestamp
+     *
      * @return int
      */
     public function getTimestamp()
@@ -104,7 +118,11 @@ class Report
     }
 
     /**
-     * @param int $timestamp
+     * Setter for the report timestamp
+     *
+     * @param int $timestamp The timestamp to set
+     *
+     * @return void
      */
     public function setTimestamp($timestamp)
     {
