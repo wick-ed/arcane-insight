@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Entities;
@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  *
  * @ORM\Entity
  * @ORM\Table(name="site")
@@ -89,19 +89,6 @@ class Site
      * @JMS\Groups({"public", "search"})
      */
     protected $logo;
-
-    /**
-     * The current status of the site. Based on latest check results
-     *
-     * @var Status $status
-     *
-     * @ORM\Column(type="string")
-     * @ORM\OneToOne(targetEntity="Status", mappedBy="site")
-     * @JMS\Expose
-     * @JMS\Type("Status")
-     * @JMS\Groups({"public", "search"})
-     */
-    protected $status;
 
     /**
      * Getter for the ID

@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\MessageBeans;
@@ -13,9 +13,10 @@ namespace Magenerds\ArcaneInsight\MessageBeans;
 use AppserverIo\Psr\Pms\MessageInterface;
 use AppserverIo\Messaging\AbstractMessageListener;
 use AppserverIo\RemoteMethodInvocation\RemoteProxy;
-use Magenerds\ArcaneInsight\Checks\LocationReachability;
-use Magenerds\ArcaneInsight\Entities\Site;
-use Magenerds\ArcaneInsight\Services\ResultProcessor;
+use Magenerds\ArcaneInsight\Entities\Status;
+use Magenerds\ArcaneInsight\Tests\TestInterface;
+use Magenerds\ArcaneInsight\Entities\Ward;
+use Magenerds\ArcaneInsight\Services\WardProcessor;
 use Magenerds\ArcaneInsight\Util\MessageKeys;
 
 /**
@@ -23,27 +24,27 @@ use Magenerds\ArcaneInsight\Util\MessageKeys;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  *
  * @MessageDriven
  */
-class CheckReceiver extends AbstractMessageListener
+class TestReceiver extends AbstractMessageListener
 {
 
     /**
-     * The result processor instance
+     * The ward processor instance
      *
-     * @var ResultProcessor|RemoteProxy
+     * @var WardProcessor|RemoteProxy
      * @EnterpriseBean
      */
-    protected $resultProcessor;
+    protected $wardProcessor;
 
     /**
-     * @return ResultProcessor|RemoteProxy
+     * @return WardProcessor|RemoteProxy
      */
-    protected function getResultProcessor()
+    protected function getWardProcessor()
     {
-        return $this->resultProcessor;
+        return $this->wardProcessor;
     }
 
     /**
@@ -59,11 +60,8 @@ class CheckReceiver extends AbstractMessageListener
     {
         $messageContent = $message->getMessage();
 
-        $site = new Site();
-        $site->setUrl($messageContent[MessageKeys::SITE]);
-
-        // start the import/export process
-        $this->execute($site);
+        $ward = $this->getWardProcessor()->read($messageContent[MessageKeys::WARD_ID]);
+        $this->execute($ward);
 
         // update the message monitory
         $this->updateMonitor($message);
@@ -74,11 +72,21 @@ class CheckReceiver extends AbstractMessageListener
      *
      * @return void
      */
-    public function execute($site)
+    public function execute(Ward $ward)
     {
-        $check = new LocationReachability();
-        $result = $check->execute($site);
-
-        $this->getResultProcessor()->create($result);
+        // iterate all tests and update the status results
+        $site = $ward->getSite();
+        $status = $ward->getStatus();
+        if (is_null($status)) {
+            $status = new Status();
+        }
+        $results = [];
+        /** @var TestInterface $test */
+        foreach ($ward->getTests() as $test) {
+            $results[] = $test->execute($site);
+        }
+        // update the ward with the new status
+        $status->setResults($results);
+        $this->getWardProcessor()->update([$ward]);
     }
 }

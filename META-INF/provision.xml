@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<provision xmlns="http://www.appserver.io/appserver">
+
+    <installation>
+        <steps>
+            <step type="Magenerds\ArcaneInsight\Provisioning\StandardProvisioningStep" />
+        </steps>
+    </installation>
+
+</provision>

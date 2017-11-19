@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Actions;
@@ -27,7 +27,7 @@ use Magenerds\ArcaneInsight\Util\UserMessages;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 abstract class AbstractDispatchAction extends DispatchAction implements EncodingAware, DefaultHeadersAware
 {
@@ -121,7 +121,7 @@ abstract class AbstractDispatchAction extends DispatchAction implements Encoding
     }
 
     /**
-     * Implemented to comply witht the interface.
+     * Implemented to comply with the interface.
      *
      * @param \AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface  $servletRequest  The request instance
      * @param \AppserverIo\Psr\Servlet\Http\HttpServletResponseInterface $servletResponse The response instance

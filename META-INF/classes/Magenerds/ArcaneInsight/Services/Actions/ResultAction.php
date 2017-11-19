@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Services\Actions;
@@ -16,7 +16,7 @@ use Magenerds\ArcaneInsight\Entities\Result;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  *
  * @Stateless
  */

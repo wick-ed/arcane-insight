@@ -1,7 +1,7 @@
 <?php
 
 /**
- * \Magenerds\ArcaneInsight\Provisioning\DevProvisioningStep
+ * \Magenerds\ArcaneInsight\Provisioning\StandardProvisioningStep
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Tim Wagner <t.wagner@techdivision.com>
@@ -22,7 +22,7 @@ use Magenerds\ArcaneInsight\Services\SchemaProcessor;
  * @author    Bernhard Wick <b.wick@techdivision.com>
  * @link      https://github.com/wick-ed/arcane-insight
  */
-class DevProvisioningStep extends AbstractProvisioningStep
+class StandardProvisioningStep extends AbstractProvisioningStep
 {
 
     /**
@@ -39,16 +39,9 @@ class DevProvisioningStep extends AbstractProvisioningStep
             // log a message that provisioning starts
             $this->logStart();
 
-            // load the schema processor of our application
-            /** @var SchemaProcessor $schemaProcessor */
-            $schemaProcessor = $this->getApplication()->search('SchemaProcessor');
-
             /** @var TestProcessor $testProcessor */
             $testProcessor = $this->getApplication()->search('TestProcessor');
 
-            // create the datasources anew and fill them with dummy data
-            $schemaProcessor->dropSchema();
-            $schemaProcessor->createSchema();
             $testProcessor->syncKnownTests();
 
             // log a message that provisioning has been successful

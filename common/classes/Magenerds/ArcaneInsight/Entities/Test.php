@@ -1,7 +1,7 @@
 <?php
 
 /**
- * \Magenerds\ArcaneInsight\Entities\Report
+ * \Magenerds\ArcaneInsight\Entities\Test
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
@@ -14,17 +14,17 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- *
+ * Doctrine entity that represents a profile.
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
  * @link      https://github.com/wick-ed/arcane-insight
  *
  * @ORM\Entity
- * @ORM\Table(name="report")
+ * @ORM\Table(name="test")
  * @JMS\ExclusionPolicy("all")
  */
-class Report
+class Test
 {
 
     /**
@@ -42,26 +42,27 @@ class Report
     protected $id;
 
     /**
-     * The complete report log
+     * The unique key identifying the result by type
      *
-     * @var string $log
+     * @var string $key
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", name="keyString")
      * @JMS\Expose
      * @JMS\Type("string")
      * @JMS\Groups({"public", "search"})
      */
-    protected $log;
+    protected $key;
 
     /**
-     * Timestamp tracking the latest change to the result entry
+     * The name of the class implementing this test
      *
-     * @var integer $timestamp
+     * @var string $implementationClass
      *
-     * @JMS\Type("integer")
+     * @ORM\Column(type="string")
+     * @JMS\Type("string")
      * @JMS\Groups({"public", "search"})
      */
-    protected $timestamp;
+    protected $implementationClass;
 
     /**
      * Getter for the ID
@@ -86,46 +87,46 @@ class Report
     }
 
     /**
-     * Getter for the report log
+     * Getter for the result key
      *
      * @return string
      */
-    public function getLog()
+    public function getKey()
     {
-        return $this->log;
+        return $this->key;
     }
 
     /**
-     * Setter for the report log
+     * Setter for the result key
      *
-     * @param string $log The log to set
+     * @param string $key The result key to set
      *
      * @return void
      */
-    public function setLog($log)
+    public function setKey($key)
     {
-        $this->log = $log;
+        $this->key = $key;
     }
 
     /**
-     * Getter for the report timestamp
+     * Getter for the implementation class
      *
-     * @return int
+     * @return string
      */
-    public function getTimestamp()
+    public function getImplementationClass()
     {
-        return $this->timestamp;
+        return $this->implementationClass;
     }
 
     /**
-     * Setter for the report timestamp
+     * Setter for the implementation class
      *
-     * @param int $timestamp The timestamp to set
+     * @param string $implementationClass The implementation class to set
      *
      * @return void
      */
-    public function setTimestamp($timestamp)
+    public function setImplementationClass($implementationClass)
     {
-        $this->timestamp = $timestamp;
+        $this->implementationClass = $implementationClass;
     }
 }

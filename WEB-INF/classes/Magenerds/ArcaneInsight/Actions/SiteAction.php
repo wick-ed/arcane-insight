@@ -13,28 +13,24 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Actions;
 
-use AppserverIo\Messaging\ArrayMessage;
-use AppserverIo\Messaging\MessageQueue;
-use AppserverIo\Messaging\QueueConnectionFactory;
 use AppserverIo\RemoteMethodInvocation\RemoteProxy;
 use AppserverIo\Routlt\ActionInterface;
 use AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface;
 use AppserverIo\Psr\Servlet\Http\HttpServletResponseInterface;
 use Magenerds\ArcaneInsight\Entities\Site;
 use Magenerds\ArcaneInsight\Services\SiteProcessor;
-use Magenerds\ArcaneInsight\Util\MessageKeys;
 
 /**
  * Default action implementation.
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  *
  * @Path(name="/sites")
  *

@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Actions;
@@ -14,16 +14,24 @@ use AppserverIo\Psr\Servlet\Http\HttpServletRequestInterface;
 use AppserverIo\Psr\Servlet\Http\HttpServletResponseInterface;
 use AppserverIo\Psr\MetaobjectProtocol\Dbc\ContractExceptionInterface;
 use AppserverIo\Psr\MetaobjectProtocol\Dbc\BrokenPreconditionException;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Abstract action to extract information from a RESTful style URI
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 abstract class AbstractRestfulAction extends AbstractDispatchAction
 {
+
+    /**
+     * The name of the primary REST resource
+     *
+     * @var string|null $primaryEntity
+     */
+    protected $primaryEntity;
 
     /**
      * The id of the primary REST resource
@@ -31,6 +39,20 @@ abstract class AbstractRestfulAction extends AbstractDispatchAction
      * @var string|null $primaryId
      */
     protected $primaryId;
+
+    /**
+     * The id of the secondary REST resource
+     *
+     * @var string|null $secondaryEntity
+     */
+    protected $secondaryEntity;
+
+    /**
+     * The id of the secondary REST resource
+     *
+     * @var string|null $secondaryId
+     */
+    protected $secondaryId;
 
     /**
      * Pairs of resources extracted from the path info.
@@ -41,6 +63,26 @@ abstract class AbstractRestfulAction extends AbstractDispatchAction
     protected $resourcePairs;
 
     /**
+     * Mapping which helps to resolve entities plural form
+     *
+     * @var array $entitiesPluralMapping
+     */
+    protected $entitiesPluralMapping = array(
+        'tests' => 'test',
+        'wards' => 'ward',
+    );
+
+    /**
+     * Getter for the primaryEntity member
+     *
+     * @return string|null
+     */
+    public function getPrimaryEntity()
+    {
+        return $this->primaryEntity;
+    }
+
+    /**
      * Getter for the primaryId member
      *
      * @return string|null
@@ -48,6 +90,26 @@ abstract class AbstractRestfulAction extends AbstractDispatchAction
     public function getPrimaryId()
     {
         return $this->primaryId;
+    }
+
+    /**
+     * Getter for the secondaryEntity member
+     *
+     * @return string|null
+     */
+    public function getSecondaryEntity()
+    {
+        return $this->secondaryEntity;
+    }
+
+    /**
+     * Getter for the secondaryId member
+     *
+     * @return string|null
+     */
+    public function getSecondaryId()
+    {
+        return $this->secondaryId;
     }
 
     /**
@@ -84,7 +146,14 @@ abstract class AbstractRestfulAction extends AbstractDispatchAction
         for ($i = 1; $i < $partsCount; $i = $i + 2) {
             if (isset($urlParts[$i + 1])) {
                 $this->resourcePairs[$urlParts[$i]] = $urlParts[$i + 1];
+            } else {
+                $this->resourcePairs[$urlParts[$i]] = null;
             }
+        }
+
+        // we store the primary entity separately for simplicity reasons
+        if ($partsCount > 1) {
+            $this->primaryEntity = $urlParts[1];
         }
 
         // we store the primary id separately for simplicity reasons
@@ -92,12 +161,22 @@ abstract class AbstractRestfulAction extends AbstractDispatchAction
             $this->primaryId = $urlParts[2];
         }
 
+        // we might also have a sub-entity to work with
+        if ($partsCount > 3) {
+            $this->secondaryEntity = $urlParts[3];
+        }
+
+        // ... and an ID for this sub-entity
+        if ($partsCount > 4) {
+            $this->secondaryId = $urlParts[4];
+        }
+
         // fall-through to the parent
         return parent::perform($servletRequest, $servletResponse);
     }
 
     /**
-     * Converts and object to a CRUD entity
+     * Converts an object to a CRUD entity
      *
      * @param \stdClass   $rawObject   The object to convert
      * @param string|null $entityClass A entity class to convert to
@@ -121,10 +200,29 @@ abstract class AbstractRestfulAction extends AbstractDispatchAction
             if (method_exists($resultInstance, $method)) {
                 // try the setter, but be aware of validation errors
                 try {
-                    // check if we have to convert the value first
-                    $potentialSubEntity = substr($entityClass, 0, (strrpos($entityClass, '\\') + 1)) . ucfirst($property);
-                    if (class_exists($potentialSubEntity)) {
-                        $value = $this->convertToEntity($value, $potentialSubEntity);
+                    // we might have an array at our hands
+                    if (is_array($value)) {
+                    $tmpValue = $value;
+                    $value = new ArrayCollection();
+                        // build up the potential sub entity class name but be aware that the property might be in the plural form
+                        $potentialSubEntity = substr($entityClass, 0, (strrpos($entityClass, '\\') + 1));
+                        if (isset($this->entitiesPluralMapping[$property])) {
+                            $potentialSubEntity .= ucfirst($this->entitiesPluralMapping[$property]);
+                        } else {
+                            $potentialSubEntity .= ucfirst($property);
+                        }
+                        // if we found something we can start converting
+                        if (class_exists($potentialSubEntity)) {
+                            foreach ($tmpValue as $key => $subValue) {
+                                $value->add($this->convertToEntity($subValue, $potentialSubEntity));
+                            }
+                        }
+                    } elseif (is_object($value)) {
+                        // we have single object
+                        $potentialSubEntity = substr($entityClass, 0, (strrpos($entityClass, '\\') + 1)) . ucfirst($property);
+                        if (class_exists($potentialSubEntity)) {
+                            $value = $this->convertToEntity($value, $potentialSubEntity);
+                        }
                     }
                     $resultInstance->$method($value);
                 } catch (ContractExceptionInterface $e) {

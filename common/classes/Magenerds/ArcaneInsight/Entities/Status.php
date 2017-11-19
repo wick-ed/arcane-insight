@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Entities;
@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  *
  * @ORM\Entity
  * @ORM\Table(name="status")
@@ -54,24 +54,24 @@ class Status
     protected $code;
 
     /**
-     * The site the status is for
+     * The ward the status is for
      *
-     * @var Site $site
+     * @var Ward $ward
      *
-     * @ORM\OneToOne(targetEntity="Site", mappedBy="status")
+     * @ORM\OneToOne(targetEntity="Ward", inversedBy="status")
      * @JMS\Expose
-     * @JMS\Type("Site")
+     * @JMS\Type("Magenerds\ArcaneInsight\Entities\Ward")
      * @JMS\Groups({"public", "search"})
      */
-    protected $site;
+    protected $ward;
 
     /**
-     * The results which hold the check data for this status
+     * The results which hold the test data for this status
      *
      * @var Result[] $results
      *
      *
-     * @ORM\ManyToMany(targetEntity="Result")
+     * @ORM\OneToMany(targetEntity="Result", mappedBy="status")
      * @ORM\JoinTable(name="status_results",
      *      joinColumns={@ORM\JoinColumn(name="status_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="result_id", referencedColumnName="id", unique=true)}
@@ -128,25 +128,25 @@ class Status
     }
 
     /**
-     * The getter for the site
+     * The getter for the ward
      *
-     * @return Site
+     * @return Ward
      */
-    public function getSite()
+    public function getWard()
     {
-        return $this->site;
+        return $this->ward;
     }
 
     /**
-     * The setter for the site
+     * The setter for the ward
      *
-     * @param Site $site The site to set
+     * @param Ward $ward The ward to set
      *
      * @return void
      */
-    public function setSite($site)
+    public function setWard($ward)
     {
-        $this->site = $site;
+        $this->ward = $ward;
     }
 
     /**

@@ -1,15 +1,16 @@
 <?php
 
 /**
- * \Magenerds\ArcaneInsight\Checks\Heartbeat
+ * \Magenerds\ArcaneInsight\Tests\Heartbeat
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
-namespace Magenerds\ArcaneInsight\Checks;
+namespace Magenerds\ArcaneInsight\Tests;
 
+use Magenerds\ArcaneInsight\Entities\Report;
 use Magenerds\ArcaneInsight\Entities\Result;
 use Magenerds\ArcaneInsight\Entities\Site;
 
@@ -18,15 +19,39 @@ use Magenerds\ArcaneInsight\Entities\Site;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
-class Heartbeat implements CheckInterface
+class Heartbeat implements TestInterface
 {
 
+    const SEVERITY = 1;
+    const RESULT_KEY = 'test:heartbeat';
+
     /**
-     * Will execute the check algorithm for a given site
+     * Returns the test's severity on a scale of 1 to 10.
+     * 1 being armageddon and 10 being a mere info
      *
-     * @param Site $site The site to execute the check for
+     * @return string
+     */
+    public function getSeverity()
+    {
+        return static::SEVERITY;
+    }
+
+    /**
+     * Returns the test's unique key
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return static::RESULT_KEY;
+    }
+
+    /**
+     * Will execute the test algorithm for a given site
+     *
+     * @param Site $site The site to execute the test for
      *
      * @return Result
      *
@@ -52,10 +77,19 @@ class Heartbeat implements CheckInterface
         //echo curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+
+        $result = new Result();
+        $result->setReport(new Report());
+        $result->setSeverity(self::SEVERITY);
+        $result->setKey($this->getKey());
+        $result->setTimestamp(time());
+
         if ($httpCode >= 200 && $httpCode < 300) {
-            return true;
+            $result->setStatus(1);
         } else {
-            return false;
+            $result->setStatus(-1);
         }
+
+        return $result;
     }
 }

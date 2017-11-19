@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Services\Actions;
@@ -15,7 +15,7 @@ namespace Magenerds\ArcaneInsight\Services\Actions;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 abstract class AbstractDatabaseQueryAction
 {
@@ -46,9 +46,9 @@ abstract class AbstractDatabaseQueryAction
     abstract public function getTargetEntity();
 
     /**
-     * Returns an array with all users.
+     * Returns an array with all entities
      *
-     * @return array The array with the users
+     * @return array The array with the entities
      */
     public function findAll()
     {
@@ -58,11 +58,11 @@ abstract class AbstractDatabaseQueryAction
     }
 
     /**
-     * Returns an array with the users matching the passed query.
+     * Returns an array with the entities matching the passed query
      *
-     * @param array $query The query matching the users
+     * @param array $query The query matching the entities
      *
-     * @return mixed The collection with the users matching the query
+     * @return mixed The collection with the entities matching the query
      */
     public function findBy(array $query)
     {
@@ -72,11 +72,11 @@ abstract class AbstractDatabaseQueryAction
     }
 
     /**
-     * Returns an array with all users.
+     * Returns an array with all entities
      *
-     * @param integer $id The instance if
+     * @param string $id The instance ID
      *
-     * @return object|null The found user
+     * @return object|null The found entity
      */
     public function findById($id)
     {

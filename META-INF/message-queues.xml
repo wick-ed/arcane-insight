@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <message-queues xmlns="http://www.appserver.io/appserver">
-    <message-queue type="CheckReceiver">
-        <destination>pms/check-dispatcher</destination>
+    <message-queue type="TestReceiver">
+        <destination>pms/test-dispatcher</destination>
     </message-queue>
 </message-queues>

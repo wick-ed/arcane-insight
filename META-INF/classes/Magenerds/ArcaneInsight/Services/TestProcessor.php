@@ -1,7 +1,7 @@
 <?php
 
 /**
- * \Magenerds\ArcaneInsight\Services\ResultProcessor
+ * \Magenerds\ArcaneInsight\Services\TestProcessor
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
@@ -10,9 +10,10 @@
 
 namespace Magenerds\ArcaneInsight\Services;
 
-use Doctrine\ORM\EntityManagerInterface;
+use AppserverIo\RemoteMethodInvocation\RemoteObjectInterface;
+use Magenerds\ArcaneInsight\Entities\Test;
 use Magenerds\ArcaneInsight\Entities\Result;
-use Magenerds\ArcaneInsight\Services\Actions\ResultAction;
+use Magenerds\ArcaneInsight\Services\Actions\TestAction;
 
 /**
  *
@@ -23,16 +24,26 @@ use Magenerds\ArcaneInsight\Services\Actions\ResultAction;
  *
  * @Stateless
  */
-class ResultProcessor
+class TestProcessor
 {
 
     /**
      * The result action
      *
-     * @var EntityManagerInterface|ResultAction
+     * @var RemoteObjectInterface|TestAction
      * @EnterpriseBean
      */
-    protected $resultAction;
+    protected $testAction;
+
+    /**
+     * Returns the initialized Doctrine entity manager.
+     *
+     * @return RemoteObjectInterface|TestAction The initialized Doctrine entity manager
+     */
+    protected function getTestAction()
+    {
+        return $this->testAction;
+    }
 
     /**
      * Loads all or only a certain user entity
@@ -43,18 +54,26 @@ class ResultProcessor
      */
     public function read($id = null)
     {
-        return $this->resultAction->read($id);
+        return $this->getTestAction()->read($id);
     }
 
     /**
      * Loads all or only a certain user entity
      *
-     * @param string|null $id Id of entity to load
+     * @param Test $test The test to create
      *
-     * @return array|Result
+     * @return array|Test
      */
-    public function create(Result $result)
+    public function create(Test $test)
     {
-        return $this->resultAction->create($result);
+        return $this->getTestAction()->create($test);
+    }
+
+    /**
+     *
+     */
+    public function syncKnownTests()
+    {
+        $this->getTestAction()->syncKnownTests();
     }
 }

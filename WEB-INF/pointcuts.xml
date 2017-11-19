@@ -3,7 +3,7 @@
 
     <pointcut>
         <pointcut-name>allActions</pointcut-name>
-        <pointcut-pattern>call(\Magenerds\ArcaneInsight\*->*Action())</pointcut-pattern>
+        <pointcut-pattern>call(\Magenerds\ArcaneInsight\Actions\*->*Action())</pointcut-pattern>
     </pointcut>
 
     <advice>

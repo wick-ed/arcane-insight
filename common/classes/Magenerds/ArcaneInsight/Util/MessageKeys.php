@@ -4,7 +4,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Util;
@@ -14,7 +14,7 @@ namespace Magenerds\ArcaneInsight\Util;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 class MessageKeys
 {
@@ -33,9 +33,16 @@ class MessageKeys
     const SITE = 'site';
 
     /**
-     * The key for the check name
+     * The key for the test name
      *
      * @return string
      */
-    const CHECK = 'check';
+    const TEST = 'test';
+
+    /**
+     * The key for the ward id
+     *
+     * @return string
+     */
+    const WARD_ID = 'wardId';
 }

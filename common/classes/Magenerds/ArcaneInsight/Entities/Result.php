@@ -5,7 +5,7 @@
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
 namespace Magenerds\ArcaneInsight\Entities;
@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  *
  * @ORM\Entity
  * @ORM\Table(name="result")
@@ -76,7 +76,7 @@ class Result
      * @JMS\Type("integer")
      * @JMS\Groups({"public", "search"})
      */
-    protected $status;
+    protected $statusCode = 0;
 
     /**
      * The report being the base of this result
@@ -84,7 +84,7 @@ class Result
      * @var Report $report
      *
      * @ORM\ManyToOne(targetEntity="Report", cascade={"persist"})
-     * @JMS\Type("\Magenerds\ArcaneInsight\Entities\Report")
+     * @JMS\Type("Magenerds\ArcaneInsight\Entities\Report")
      * @JMS\Groups({"public", "search"})
      */
     protected $report;
@@ -171,21 +171,21 @@ class Result
      *
      * @return integer
      */
-    public function getStatus()
+    public function getStatusCode()
     {
-        return $this->status;
+        return $this->statusCode;
     }
 
     /**
      * Setter for the result status
      *
-     * @param integer $status The status to set. -1 = failed, 0 = unknown, 1 = success
+     * @param integer $statusCode The status to set. -1 = failed, 0 = unknown, 1 = success
      *
      * @return void
      */
-    public function setStatus($status)
+    public function setStatusCode($statusCode)
     {
-        $this->status = $status;
+        $this->statusCode = $statusCode;
     }
 
     /**

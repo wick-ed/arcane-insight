@@ -1,14 +1,14 @@
 <?php
 
 /**
- * \Magenerds\ArcaneInsight\Checks\LocationReachability
+ * \Magenerds\ArcaneInsight\Tests\LocationReachability
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
 
-namespace Magenerds\ArcaneInsight\Checks;
+namespace Magenerds\ArcaneInsight\Tests;
 
 use Magenerds\ArcaneInsight\Entities\Report;
 use Magenerds\ArcaneInsight\Entities\Result;
@@ -23,18 +23,39 @@ use Symfony\Component\Console\Output\BufferedOutput;
  *
  * @copyright Copyright (c) 2017 TechDivision GmbH (http://www.techdivision.com)
  * @author    Bernhard Wick <b.wick@techdivision.com>
- * @link      https://github.com/magenerds/arcane-insight
+ * @link      https://github.com/wick-ed/arcane-insight
  */
-class LocationReachability implements CheckInterface
+class LocationReachability implements TestInterface
 {
 
     const SEVERITY = 2;
-    const RESULT_KEY = 'check:location-reachability';
+    const RESULT_KEY = 'test:magento1:location-reachability';
 
     /**
-     * Will execute the check algorithm for a given site
+     * Returns the test's severity on a scale of 1 to 10.
+     * 1 being armageddon and 10 being a mere info
      *
-     * @param Site $site The site to execute the check for
+     * @return string
+     */
+    public function getSeverity()
+    {
+        return static::SEVERITY;
+    }
+
+    /**
+     * Returns the test's unique key
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return static::RESULT_KEY;
+    }
+
+    /**
+     * Will execute the test algorithm for a given site
+     *
+     * @param Site $site The site to execute the test for
      *
      * @return Result
      *
